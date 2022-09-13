@@ -7,7 +7,7 @@ phpnginx0:
       # Which tasks should be run to build the application.
       - composer install
     # Which files and directories should be copied from a build container into a runtime container.
-    deploy: ['vendor', 'public']
+    deploy: [.]
   run:
     # Folder name used as the root of the publicly accessible web server content.
     documentRoot: public
