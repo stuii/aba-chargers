@@ -2,7 +2,7 @@
 phpnginx0:
   build:
     # Which container type should be used as a base one to create a build container.
-    base: [php@8.0]
+    base: [php@8.1]
     build:
       # Which tasks should be run to build the application.
       - composer install
