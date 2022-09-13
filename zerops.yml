@@ -1,5 +1,5 @@
 # Service hostname to which the application will be deployed.
-phpapp:
+phpnginx0:
   build:
     # Which container type should be used as a base one to create a build container.
     base: [php@8.0]
