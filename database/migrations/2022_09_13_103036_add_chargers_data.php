@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('chargers', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            $table->string('charger_id');
-            $table->string('name');
-            $table->string('location');
-        });
+        DB::table('chargers')
+            ->insert([
+                'charger_id' => 488,
+                'name' => 'Parkplatz 04',
+                'location' => 'Kundenparkplatz'
+            ]);
     }
 
     /**
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('chargers');
+        //
     }
 };
