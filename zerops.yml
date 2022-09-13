@@ -1,0 +1,51 @@
+project:
+  name: copy of AbaChargers
+services:
+  - hostname: phpnginx0
+    type: php-nginx@8.1+1.20
+    nginxConfig: |
+      server {
+          listen 80;
+          listen [::]:80;
+
+          server_name _;
+
+          # Be sure that you set up a correct document root!
+          root /var/www/public;
+
+          location / {
+              try_files $uri /index.php$is_args$args;
+          }
+
+          location ~* \.php$ {
+              fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
+              fastcgi_split_path_info ^(.+\.php)(/.*)$;
+              include fastcgi_params;
+
+              fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+              fastcgi_param DOCUMENT_ROOT $realpath_root;
+              internal;
+          }
+
+          access_log syslog:server=unix:/dev/log,facility=local1 default_short;
+          error_log syslog:server=unix:/dev/log,facility=local1;
+      }
+    verticalAutoscaling:
+      minVCpu: 1
+      maxVCpu: 20
+      minRam: 0.25
+      maxRam: 32
+      minDisk: 1
+      maxDisk: 100
+    minContainers: 1
+    maxContainers: 4
+  - hostname: mariadb0
+    type: mariadb@10.4
+    mode: NON_HA
+    verticalAutoscaling:
+      minVCpu: 1
+      maxVCpu: 20
+      minRam: 1
+      maxRam: 32
+      minDisk: 1
+      maxDisk: 100

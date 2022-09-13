@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('chargers', function (Blueprint $table) {
+        Schema::create('charger_status', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('charger_id');
-            $table->string('name');
-            $table->string('location');
+            $table->foreig('charger_id')->references('id')->on('chargers');
+            $table->string('status');
         });
     }
 
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('chargers');
+        Schema::dropIfExists('charger_status');
     }
 };
